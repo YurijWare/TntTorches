@@ -1,0 +1,14 @@
+name: TntTorches
+main: com.yurijware.bukkit.TntTorches.TntTorches
+version: 1.0
+authors: [Yurij]
+softdepend: [Spout,PermissionsEx,Permissions]
+
+description: >
+            Enables the use of regular or redstone torches to ignite tnt.
+            
+permissions:
+  TntTorches.use:
+    description: Allows you to use regular or redstone torches to ignite tnt
+    default: true
+    
