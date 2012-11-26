@@ -3,8 +3,6 @@ package com.yurijware.bukkit.TntTorches;
 import java.util.logging.Logger;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -19,14 +17,12 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class TntTorches extends JavaPlugin {
 	public final Logger log = Logger.getLogger("Minecraft");
 	protected static PluginDescriptionFile pdfFile = null;
-    public static String logPrefix = null;
+	public static String logPrefix = null;
 	
 	protected static PermissionManager permissionsExHandler;
 	protected static PermissionHandler permissionsHandler;
 	
 	protected boolean spoutEnabled = false;
-	
-	private final TTBlockListener blockListener = new TTBlockListener(this);
 	
 	@Override
 	public void onDisable() {
@@ -38,14 +34,14 @@ public class TntTorches extends JavaPlugin {
 		pdfFile = this.getDescription();
 		logPrefix = "[" + pdfFile.getName() + "] ";
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Priority.Normal, this);
+		pm.registerEvents(new TTBlockListener(this), this);
 		
 		Plugin spout = pm.getPlugin("Spout");
 		if (spout != null && spout.isEnabled()) {
 			this.spoutEnabled = true;
 			String v = spout.getDescription().getVersion();
 			log.info(logPrefix + "Spout detected! Using version " + v);
-	    }
+		}
 		
 		Plugin permissionsEx = pm.getPlugin("PermissionsEx");
 		Plugin permissions = pm.getPlugin("Permissions");
